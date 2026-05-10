@@ -1,0 +1,18 @@
+name: Download Video
+on: workflow_dispatch
+
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup yt-dlp
+        uses: AnimMouse/setup-yt-dlp@v3
+      - name: Download video
+        run: |
+          yt-dlp
+          "https://www.youtube.com/watch?v=9bZkp7q19f0" -o "video.%(ext)s"
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: video
+          path: video.*
